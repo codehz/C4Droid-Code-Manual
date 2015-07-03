@@ -7,14 +7,16 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="#0CC"
-        android:minHeight="?attr/actionBarSize">
+        android:minHeight="?attr/actionBarSize"
+        tools:context=".MainActivity" />
 
-    </android.support.v7.widget.Toolbar>
-
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="march_parent"
+        android:layout_height="march_parent"
+        tools:context=".MainActivity" />
 
 </LinearLayout>

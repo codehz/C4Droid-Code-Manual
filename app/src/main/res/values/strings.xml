@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">C4Droid代码手册</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string-array name="LeftDrawerItem">
+        <item>主页 Main Page</item>
+        <item>索引 Index</item>
+        <item>帮助 Help</item>
+        <item>关于 About</item>
+    </string-array>
+    <string name="action_settings">设置</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
