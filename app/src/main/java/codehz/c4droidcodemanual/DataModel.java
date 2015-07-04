@@ -1,3 +1,5 @@
+package codehz.c4droidcodemanual;
+
 public class DataModel {
     public String Title;
     public String Preview;

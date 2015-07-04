@@ -15,8 +15,8 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list"
-        android:layout_width="march_parent"
-        android:layout_height="march_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         tools:context=".MainActivity" />
 
 </LinearLayout>
