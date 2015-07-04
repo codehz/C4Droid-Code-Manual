@@ -1,6 +1,9 @@
 package codehz.c4droidcodemanual;
 
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +27,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        LinearLayout dl = (LinearLayout) findViewById(R.id.main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            ((DrawerLayout.LayoutParams) dl.getLayoutParams()).topMargin = Resources.getSystem().getDimensionPixelSize(
+                    Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android"));
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         modelList = new ArrayList<>();
