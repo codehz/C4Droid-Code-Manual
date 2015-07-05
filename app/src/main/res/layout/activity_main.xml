@@ -5,7 +5,7 @@
     android:background="#0CC"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,19 +25,51 @@
             android:layout_height="match_parent"
             android:background="#FFF"
             tools:context=".MainActivity" />
-    </LinearLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
 
-    <LinearLayout
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="300sp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#FFF"
         android:orientation="vertical">
 
-        <FrameLayout
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="200sp"
-            android:background="@drawable/logo" />
+            android:background="@drawable/logo">
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:padding="10sp">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/main_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp" />
+
+                <android.support.v7.widget.LinearLayoutCompat
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/main_login_or_logout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/main_sign_up_or_change_password"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </android.support.v7.widget.LinearLayoutCompat>
+            </android.support.v7.widget.LinearLayoutCompat>
+        </android.support.v7.widget.LinearLayoutCompat>
 
         <ListView
             android:layout_width="match_parent"
@@ -51,16 +83,18 @@
             android:orientation="vertical">
 
             <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="Feedback_Click"
                 android:text="@string/feedback" />
 
             <Button
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/close" />
         </LinearLayout>
-    </LinearLayout>
+    </android.support.v7.widget.LinearLayoutCompat>
 
 </android.support.v4.widget.DrawerLayout>

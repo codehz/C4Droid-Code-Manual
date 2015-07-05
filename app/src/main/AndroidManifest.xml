@@ -27,7 +27,10 @@
         </activity>
         <activity
             android:name=".FeedbackActivity"
-            android:label="@string/title_activity_feedback">
+            android:label="@string/title_activity_feedback" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/title_activity_login">
         </activity>
     </application>
 

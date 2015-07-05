@@ -1,11 +1,11 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0CC"
     tools:context="codehz.c4droidcodemanual.FeedbackActivity">
 
-    <LinearLayout
+    <android.support.v7.widget.LinearLayoutCompat
         android:id="@+id/feedback_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,18 +18,18 @@
             android:layout_height="wrap_content"
             android:background="#0CC" />
 
-        <LinearLayout
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16sp">
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/feedback_tip" />
 
-            <EditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/feedback_edit_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 android:inputType="text"
                 android:maxLength="50" />
 
-            <EditText
+            <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/feedback_edit_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -45,8 +45,8 @@
                 android:inputType="textMultiLine"
                 android:maxLength="2000" />
 
-        </LinearLayout>
-    </LinearLayout>
+        </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v7.widget.LinearLayoutCompat>
 
 
-</LinearLayout>
+</android.support.v7.widget.LinearLayoutCompat>
