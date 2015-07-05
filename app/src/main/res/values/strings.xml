@@ -16,4 +16,6 @@
     <string name="feedback_tip">您可以在此反馈您对本软件的建议或者BUG,反馈内容将会上传至服务器.</string>
     <string name="Send">发送 Send</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="username_string">用户名 Username</string>
+    <string name="password_string">密码 Password</string>
 </resources>

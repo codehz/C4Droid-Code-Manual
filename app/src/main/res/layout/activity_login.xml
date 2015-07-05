@@ -2,12 +2,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/main_color"
     tools:context="codehz.c4droidcodemanual.LoginActivity">
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/login_username"
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/login_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:background="@color/back_color"
+        android:orientation="vertical">
 
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/login_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/main_color" />
+
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/login_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/username_string" />
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/password_string" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
 </android.support.v7.widget.LinearLayoutCompat>

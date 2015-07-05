@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0CC"
+    android:background="@color/main_color"
     tools:context=".MainActivity">
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#0CC"
+            android:background="@color/main_color"
             android:minHeight="?attr/actionBarSize"
             tools:context=".MainActivity" />
 
@@ -23,7 +23,7 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FFF"
+            android:background="@color/back_color"
             tools:context=".MainActivity" />
     </android.support.v7.widget.LinearLayoutCompat>
 
