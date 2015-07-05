@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0CC"
-    android:orientation="vertical"
     tools:context="codehz.c4droidcodemanual.FeedbackActivity">
 
     <LinearLayout
@@ -31,10 +30,20 @@
                 android:text="@string/feedback_tip" />
 
             <EditText
+                android:id="@+id/feedback_edit_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:inputType="text"
+                android:maxLength="50" />
+
+            <EditText
+                android:id="@+id/feedback_edit_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="top"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:maxLength="2000" />
 
         </LinearLayout>
     </LinearLayout>
