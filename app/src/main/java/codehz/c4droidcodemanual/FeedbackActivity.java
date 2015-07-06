@@ -4,15 +4,12 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import cn.bmob.v3.listener.SaveListener;
@@ -26,8 +23,6 @@ public class FeedbackActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feedback);
         LinearLayoutCompat dl = (LinearLayoutCompat) findViewById(R.id.feedback_main);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            /*getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);*/
             ((LinearLayoutCompat.LayoutParams) dl.getLayoutParams()).topMargin =
                     Resources.getSystem().getDimensionPixelSize(
                     Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android"));
@@ -42,12 +37,12 @@ public class FeedbackActivity extends AppCompatActivity {
                 .save(this, new SaveListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(FeedbackActivity.this, "创建数据成功!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(FeedbackActivity.this, getString(R.string.feedback_success), Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailure(int code, String msg) {
-                        Toast.makeText(FeedbackActivity.this, "创建数据失败:" + msg, Toast.LENGTH_LONG).show();
+                        Toast.makeText(FeedbackActivity.this, String.format(getString(R.string.feedback_failed), msg), Toast.LENGTH_LONG).show();
                     }
                 });
     }

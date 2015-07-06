@@ -19,13 +19,13 @@
             android:background="@color/main_color" />
 
 
-        <android.support.v7.widget.AppCompatEditText
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/login_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/username_string" />
 
-        <android.support.v7.widget.AppCompatEditText
+        <com.rengwuxian.materialedittext.MaterialEditText
             android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

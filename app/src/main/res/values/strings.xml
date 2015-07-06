@@ -13,6 +13,14 @@
     <string name="password_string">Password</string>
     <string name="feedback_edit_title">Feedback Title</string>
     <string name="feedback_edit_content">Feedback Content</string>
+    <string name="feedback_success">Feedback Success</string>
+    <string name="feedback_failed">Feedback Failed:%s</string>
+
+    <string name="not_login">Not Login</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="logout">Logout</string>
+    <string name="account">Account</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

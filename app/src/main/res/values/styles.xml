@@ -11,9 +11,11 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
 
+        <!-- Toolbar Theme / Apply white arrow -->
         <item name="colorControlNormal">@android:color/white</item>
         <item name="actionBarTheme">@style/AppTheme.ActionBarTheme</item>
 
+        <!-- Material Theme -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/accent_color</item>

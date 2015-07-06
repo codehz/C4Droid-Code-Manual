@@ -1,9 +1,6 @@
 package codehz.c4droidcodemanual;
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.drawable.PaintDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -16,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 
@@ -36,17 +32,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //LinearLayoutCompat dl = (LinearLayoutCompat) findViewById(R.id.main);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            /*((DrawerLayout.LayoutParams) dl.getLayoutParams()).topMargin = Resources.getSystem().getDimensionPixelSize(
-                    Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android"));*/
-        }
-        /*modelList = new ArrayList<>();
-        modelList.add(new DataModel("测试标题1", "预览文字1\n这是换行符1"));
-        modelList.add(new DataModel("测试标题2", "预览文字2\n这是换行符2"));
-        dataAdapter = new DataAdapter(this, modelList);*/
         MaterialViewPager viewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
         pagerList = new ArrayList<>();
         pagerList.add("Recommend");
@@ -71,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         viewPager.getPagerTitleStrip().setViewPager(viewPager.getViewPager());
         viewPager.getViewPager().setCurrentItem(0);
         Toolbar toolbar = viewPager.getToolbar();
+        toolbar.setBackgroundColor(getResources().getColor(R.color.main_color));
+        viewPager.getPagerTitleStrip().setBackgroundColor(getResources().getColor(R.color.main_color));
 
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -82,11 +69,6 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setHomeButtonEnabled(true);
         }
-        /*mRecyclerView = (RecyclerView) findViewById(R.id.list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(dataAdapter);*/
         UsernameView = (AppCompatTextView) findViewById(R.id.main_username);
         LoginOrLogoutButton = (AppCompatButton) findViewById(R.id.main_login_or_logout);
         SignUpOrChangePasswordButton = (AppCompatButton) findViewById(R.id.main_sign_up_or_change_password);
@@ -95,13 +77,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void TryLogin() {
         if (AppApplication.Get().bmobUser == null) {
-            UsernameView.setText("未登录 Not logged in");
-            LoginOrLogoutButton.setText("登录 Login");
-            SignUpOrChangePasswordButton.setText("注册 Sign up");
+            UsernameView.setText(R.string.not_login);
+            LoginOrLogoutButton.setText(R.string.login);
+            LoginOrLogoutButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                }
+            });
+            SignUpOrChangePasswordButton.setText(R.string.sign_up);
         } else {
             UsernameView.setText(AppApplication.Get().bmobUser.getUsername());
-            LoginOrLogoutButton.setText("登出 Logout");
-            SignUpOrChangePasswordButton.setText("修改密码 Change password");
+            LoginOrLogoutButton.setText(R.string.logout);
+            SignUpOrChangePasswordButton.setText(R.string.account);
         }
     }
 
