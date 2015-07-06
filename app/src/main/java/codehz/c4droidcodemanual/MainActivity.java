@@ -2,21 +2,23 @@ package codehz.c4droidcodemanual;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.PaintDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+
+import com.github.florent37.materialviewpager.MaterialViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private List<DataModel> modelList;
+    private List<String> pagerList;
     private DataAdapter dataAdapter;
     private AppCompatTextView UsernameView;
     private AppCompatButton LoginOrLogoutButton, SignUpOrChangePasswordButton;
@@ -33,25 +36,57 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LinearLayoutCompat dl = (LinearLayoutCompat) findViewById(R.id.main);
+        //LinearLayoutCompat dl = (LinearLayoutCompat) findViewById(R.id.main);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            ((DrawerLayout.LayoutParams) dl.getLayoutParams()).topMargin = Resources.getSystem().getDimensionPixelSize(
-                    Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android"));
+            /*((DrawerLayout.LayoutParams) dl.getLayoutParams()).topMargin = Resources.getSystem().getDimensionPixelSize(
+                    Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android"));*/
         }
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        modelList = new ArrayList<>();
+        /*modelList = new ArrayList<>();
         modelList.add(new DataModel("测试标题1", "预览文字1\n这是换行符1"));
         modelList.add(new DataModel("测试标题2", "预览文字2\n这是换行符2"));
-        dataAdapter = new DataAdapter(this, modelList);
-        mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        dataAdapter = new DataAdapter(this, modelList);*/
+        MaterialViewPager viewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+        pagerList = new ArrayList<>();
+        pagerList.add("Recommend");
+        pagerList.add("Pure C");
+        viewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public int getCount() {
+                return pagerList.size();
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return pagerList.get(position);
+            }
+
+            @Override
+            public Fragment getItem(int position) {
+                return BaseFragment.newInstance(pagerList.get(position));
+            }
+        });
+        viewPager.getViewPager().setOffscreenPageLimit(viewPager.getViewPager().getAdapter().getCount());
+        viewPager.getPagerTitleStrip().setViewPager(viewPager.getViewPager());
+        viewPager.getViewPager().setCurrentItem(0);
+        Toolbar toolbar = viewPager.getToolbar();
+
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+
+            ActionBar actionBar = getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setDisplayUseLogoEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        }
+        /*mRecyclerView = (RecyclerView) findViewById(R.id.list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(dataAdapter);
+        mRecyclerView.setAdapter(dataAdapter);*/
         UsernameView = (AppCompatTextView) findViewById(R.id.main_username);
         LoginOrLogoutButton = (AppCompatButton) findViewById(R.id.main_login_or_logout);
         SignUpOrChangePasswordButton = (AppCompatButton) findViewById(R.id.main_sign_up_or_change_password);

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">C4droid编码手册</string>
+    <string name="action_settings">设置</string>
+    <string name="close">关闭</string>
+    <string name="feedback">反馈</string>
+    <string name="title_activity_feedback">反馈系统</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="feedback_tip">您可以在此反馈您对本软件的建议或者BUG,反馈内容将会上传至服务器.</string>
+    <string name="Send">发送</string>
+    <string name="title_activity_login">登录</string>
+    <string name="username_string">用户名</string>
+    <string name="password_string">密码</string>
+    <string name="feedback_edit_title">反馈标题</string>
+    <string name="feedback_edit_content">反馈内容</string>
+</resources>

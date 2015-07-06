@@ -12,6 +12,9 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.rengwuxian.materialedittext.MaterialEditText;
+
 import cn.bmob.v3.listener.SaveListener;
 
 
@@ -23,8 +26,8 @@ public class FeedbackActivity extends AppCompatActivity {
         setContentView(R.layout.activity_feedback);
         LinearLayoutCompat dl = (LinearLayoutCompat) findViewById(R.id.feedback_main);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            /*getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);*/
             ((LinearLayoutCompat.LayoutParams) dl.getLayoutParams()).topMargin =
                     Resources.getSystem().getDimensionPixelSize(
                     Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android"));
@@ -34,8 +37,8 @@ public class FeedbackActivity extends AppCompatActivity {
     }
 
     private void SendFeedback() {
-        new Feedback(((AppCompatEditText) findViewById(R.id.feedback_edit_title)).getText().toString(),
-                ((AppCompatEditText) findViewById(R.id.feedback_edit_content)).getText().toString(), null)
+        new Feedback(((MaterialEditText) findViewById(R.id.feedback_edit_title)).getText().toString(),
+                ((MaterialEditText) findViewById(R.id.feedback_edit_content)).getText().toString(), null)
                 .save(this, new SaveListener() {
                     @Override
                     public void onSuccess() {
