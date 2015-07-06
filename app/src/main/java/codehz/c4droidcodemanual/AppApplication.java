@@ -1,7 +1,6 @@
 package codehz.c4droidcodemanual;
 
 import android.app.Application;
-
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 
