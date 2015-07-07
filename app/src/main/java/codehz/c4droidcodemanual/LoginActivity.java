@@ -41,9 +41,21 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        MaterialEditText username_met = (MaterialEditText) findViewById(R.id.username);
+        MaterialEditText password_met = (MaterialEditText) findViewById(R.id.password);
+        boolean valid = true;
+        if (!username_met.isCharactersCountValid()) {
+            username_met.setError(getString(R.string.TheLengthOfYourInputDoesNotMeetTheRequirements));
+            valid = false;
+        }
+        if (!password_met.isCharactersCountValid()) {
+            password_met.setError(getString(R.string.TheLengthOfYourInputDoesNotMeetTheRequirements));
+            valid = false;
+        }
+        if (!valid) return false;
         BmobUser.loginByAccount(this,
-                ((MaterialEditText) findViewById(R.id.username)).getText().toString(),
-                ((MaterialEditText) findViewById(R.id.password)).getText().toString(),
+                username_met.getText().toString(),
+                password_met.getText().toString(),
                 new LogInListener<BmobUser>() {
                     @Override
                     public void done(BmobUser bmobUser, BmobException e) {
