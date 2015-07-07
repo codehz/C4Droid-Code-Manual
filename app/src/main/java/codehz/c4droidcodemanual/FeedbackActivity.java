@@ -1,7 +1,5 @@
 package codehz.c4droidcodemanual;
 
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
@@ -21,23 +19,33 @@ public class FeedbackActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
-        LinearLayoutCompat dl = (LinearLayoutCompat) findViewById(R.id.feedback_main);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            ((LinearLayoutCompat.LayoutParams) dl.getLayoutParams()).topMargin =
-                    Resources.getSystem().getDimensionPixelSize(
-                    Resources.getSystem().getIdentifier("status_bar_height", "dimen", "android"));
-        }
-        setSupportActionBar((Toolbar) findViewById(R.id.feedback_toolbar));
+        LinearLayoutCompat dl = (LinearLayoutCompat) findViewById(R.id.main);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void SendFeedback() {
-        new Feedback(((MaterialEditText) findViewById(R.id.feedback_edit_title)).getText().toString(),
-                ((MaterialEditText) findViewById(R.id.feedback_edit_content)).getText().toString(), null)
+        MaterialEditText title_met = (MaterialEditText) findViewById(R.id.edit_title);
+        MaterialEditText content_met = (MaterialEditText) findViewById(R.id.edit_content);
+        boolean valid = true;
+        if (!title_met.isCharactersCountValid()) {
+            title_met.setError(getString(R.string.TheLengthOfYourInputDoesNotMeetTheRequirements));
+            valid = false;
+        }
+        if (!content_met.isCharactersCountValid()) {
+            content_met.setError(getString(R.string.TheLengthOfYourInputDoesNotMeetTheRequirements));
+            valid = false;
+        }
+        if (!valid) {
+            return;
+        }
+        new Feedback(title_met.getText().toString(),
+                content_met.getText().toString(), null)
                 .save(this, new SaveListener() {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(FeedbackActivity.this, getString(R.string.feedback_success), Toast.LENGTH_LONG).show();
+                        finish();
                     }
 
                     @Override

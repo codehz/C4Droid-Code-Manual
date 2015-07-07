@@ -1,4 +1,5 @@
 <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,30 +7,44 @@
     tools:context="codehz.c4droidcodemanual.LoginActivity">
 
     <android.support.v7.widget.LinearLayoutCompat
-        android:id="@+id/login_main"
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/back_color"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/login_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_color" />
 
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/login_username"
+        <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/username_string" />
+            android:layout_height="match_parent"
+            android:background="@color/back_color"
+            android:orientation="vertical"
+            android:padding="16sp">
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/login_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/password_string" />
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username_string"
+                android:inputType="text"
+                app:met_clearButton="true"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="@string/username_string" />
 
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password_string"
+                android:inputType="textPassword"
+                app:met_floatingLabel="normal"
+                app:met_floatingLabelText="@string/password_string" />
+
+        </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v7.widget.LinearLayoutCompat>
 </android.support.v7.widget.LinearLayoutCompat>

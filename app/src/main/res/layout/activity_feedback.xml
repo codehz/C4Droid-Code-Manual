@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_color"
+    android:fitsSystemWindows="true"
     tools:context="codehz.c4droidcodemanual.FeedbackActivity">
 
     <android.support.v7.widget.LinearLayoutCompat
-        android:id="@+id/feedback_main"
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/back_color"
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/feedback_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_color" />
@@ -32,30 +33,31 @@
                 android:text="@string/feedback_tip" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/feedback_edit_title"
+                android:id="@+id/edit_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="top"
                 android:hint="@string/feedback_edit_title"
+                android:inputType="text"
+                android:maxLength="50"
                 app:met_floatingLabel="normal"
                 app:met_floatingLabelText="@string/feedback_edit_title"
-                app:met_minCharacters="5"
                 app:met_maxCharacters="30"
-                android:gravity="top"
-                android:inputType="text"
-                android:maxLength="50" />
+                app:met_minCharacters="5" />
 
             <com.rengwuxian.materialedittext.MaterialEditText
-                android:id="@+id/feedback_edit_content"
+                android:id="@+id/edit_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="top"
                 android:hint="@string/feedback_edit_content"
+                android:inputType="textMultiLine"
+                android:maxLength="2000"
+                android:scrollbars="vertical"
                 app:met_floatingLabel="normal"
                 app:met_floatingLabelText="@string/feedback_edit_content"
-                app:met_minCharacters="5"
                 app:met_maxCharacters="3000"
-                android:gravity="top"
-                android:inputType="textMultiLine"
-                android:maxLength="2000" />
+                app:met_minCharacters="5" />
 
         </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v7.widget.LinearLayoutCompat>
