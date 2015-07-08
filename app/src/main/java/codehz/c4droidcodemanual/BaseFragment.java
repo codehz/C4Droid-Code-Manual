@@ -1,7 +1,5 @@
 package codehz.c4droidcodemanual;
 
-import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,15 +14,6 @@ import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapte
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link BaseFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link BaseFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class BaseFragment extends Fragment {
     private static final String ARG_TARGET = "target";
 
@@ -32,8 +21,10 @@ public class BaseFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private List<DataModel> mContentItems = new ArrayList<>();
 
+    public BaseFragment() {
+    }
 
-    public static BaseFragment newInstance(String target) {
+    public static BaseFragment newInstance(final String target) {
         BaseFragment fragment = new BaseFragment();
         Bundle args = new Bundle();
         args.putString(ARG_TARGET, target);
@@ -41,11 +32,8 @@ public class BaseFragment extends Fragment {
         return fragment;
     }
 
-    public BaseFragment() {
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mTarget = getArguments().getString(ARG_TARGET);
@@ -53,16 +41,16 @@ public class BaseFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+                             final Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_base, container, false);
     }
 
     @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
+    public void onViewCreated(final View view, final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.base_recycler_view);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 

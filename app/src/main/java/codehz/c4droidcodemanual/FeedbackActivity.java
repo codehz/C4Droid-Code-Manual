@@ -6,8 +6,8 @@ import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
+import com.kenny.snackbar.SnackBar;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import cn.bmob.v3.listener.SaveListener;
@@ -16,7 +16,7 @@ import cn.bmob.v3.listener.SaveListener;
 public class FeedbackActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
         LinearLayoutCompat dl = (LinearLayoutCompat) findViewById(R.id.main);
@@ -44,19 +44,19 @@ public class FeedbackActivity extends AppCompatActivity {
                 .save(this, new SaveListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(FeedbackActivity.this, getString(R.string.feedback_success), Toast.LENGTH_LONG).show();
+                        SnackBar.show(MainActivity.self, R.string.feedback_success);
                         finish();
                     }
 
                     @Override
                     public void onFailure(int code, String msg) {
-                        Toast.makeText(FeedbackActivity.this, String.format(getString(R.string.feedback_failed), msg), Toast.LENGTH_LONG).show();
+                        SnackBar.show(FeedbackActivity.this, String.format(getString(R.string.feedback_failed), msg));
                     }
                 });
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
@@ -71,7 +71,13 @@ public class FeedbackActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    protected void onStop() {
+        super.onStop();
+        SnackBar.cancelSnackBars(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.feedback, menu);
         return true;
     }

@@ -19,6 +19,7 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
+    public static MainActivity self;
     private RecyclerView mRecyclerView;
     private List<DataModel> modelList;
     private List<String> pagerList;
@@ -27,10 +28,11 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatButton LoginOrLogoutButton, SignUpOrChangePasswordButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
+        self = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        MaterialViewPager viewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
+        final MaterialViewPager viewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
         pagerList = new ArrayList<>();
         pagerList.add("Recommend");
         pagerList.add("Pure C");
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.getViewPager().setOffscreenPageLimit(viewPager.getViewPager().getAdapter().getCount());
         viewPager.getPagerTitleStrip().setViewPager(viewPager.getViewPager());
         viewPager.getViewPager().setCurrentItem(0);
-        Toolbar toolbar = viewPager.getToolbar();
+        final Toolbar toolbar = viewPager.getToolbar();
         toolbar.setBackgroundColor(getResources().getColor(R.color.main_color));
         viewPager.getPagerTitleStrip().setBackgroundColor(getResources().getColor(R.color.main_color));
 
@@ -84,6 +86,12 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
             SignUpOrChangePasswordButton.setText(R.string.sign_up);
+            SignUpOrChangePasswordButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+                }
+            });
         } else {
             UsernameView.setText(AppApplication.Get().bmobUser.getUsername());
             LoginOrLogoutButton.setText(R.string.logout);
@@ -91,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void Feedback_Click(View view) {
-        Intent intent = new Intent(this, FeedbackActivity.class);
+        final Intent intent = new Intent(this, FeedbackActivity.class);
         startActivity(intent);
     }
 }

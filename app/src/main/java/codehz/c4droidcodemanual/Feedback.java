@@ -12,7 +12,7 @@ public class Feedback extends BmobObject {
         super();
     }
 
-    public Feedback(String Title, String Content, BmobFile Screenshot) {
+    public Feedback(final String Title, final String Content, final BmobFile Screenshot) {
         setTitle(Title);
         setContent(Content);
         setScreenshot(Screenshot);
@@ -22,7 +22,7 @@ public class Feedback extends BmobObject {
         return Title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         Title = title;
     }
 
@@ -30,7 +30,7 @@ public class Feedback extends BmobObject {
         return Content;
     }
 
-    public void setContent(String content) {
+    public void setContent(final String content) {
         Content = content;
     }
 
@@ -38,7 +38,7 @@ public class Feedback extends BmobObject {
         return Screenshot;
     }
 
-    public void setScreenshot(BmobFile screenshot) {
+    public void setScreenshot(final BmobFile screenshot) {
         Screenshot = screenshot;
     }
 }

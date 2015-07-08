@@ -10,22 +10,22 @@ import android.widget.TextView;
 import java.util.List;
 
 public class DataAdapter extends RecyclerView.Adapter {
-    Context mContext;
-    List<DataModel> mModels;
+    private Context mContext;
+    private List<DataModel> mModels;
 
-    public DataAdapter(Context context, List<DataModel> models) {
+    public DataAdapter(final Context context, final List<DataModel> models) {
         mContext = context;
         mModels = models;
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
         return new ViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view, viewGroup, false));
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
-        DataModel model = mModels.get(i);
+    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int i) {
+        final DataModel model = mModels.get(i);
         ViewHolder viewHolderSelf = (ViewHolder) viewHolder;
         viewHolderSelf.Title.setText(model.Title);
         viewHolderSelf.Preview.setText(model.Preview);
@@ -39,7 +39,7 @@ public class DataAdapter extends RecyclerView.Adapter {
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView Title, Preview;
 
-        public ViewHolder(View view) {
+        public ViewHolder(final View view) {
             super(view);
             Title = (TextView) view.findViewById(R.id.card_view_title);
             Preview = (TextView) view.findViewById(R.id.card_view_preview);
