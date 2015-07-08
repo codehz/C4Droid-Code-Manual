@@ -75,18 +75,13 @@ public class LoginActivity extends AppCompatActivity {
     private class LoginCallback implements AppApplication.Callback<BmobUser> {
         @Override
         public void done(final BmobUser bmobUser, final Exception e) {
-            if (bmobUser != null) {
-                SnackBar.show(MainActivity.self,
-                        String.format(getString(R.string.login_success),
-                                bmobUser.getUsername()));
-                finish();
-            } else {
+            if (bmobUser == null) {
                 SnackBar.show(LoginActivity.this,
                         String.format(getString(R.string.login_failed),
                                 e.getMessage()));
                 ((InputMethodManager) LoginActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE))
                         .hideSoftInputFromWindow(findViewById(R.id.username).getWindowToken(), 0);
-            }
+            } else finish();
         }
     }
 }

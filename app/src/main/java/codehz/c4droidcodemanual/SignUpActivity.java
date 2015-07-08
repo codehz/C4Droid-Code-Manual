@@ -94,10 +94,8 @@ public class SignUpActivity extends AppCompatActivity {
     private class SignUpSaveCallback implements AppApplication.Callback<BmobUser> {
         @Override
         public void done(final BmobUser t, final Exception e) {
-            if (t != null) {
-                SnackBar.show(MainActivity.self, R.string.sign_up_success);
-                finish();
-            } else SnackBar.show(SignUpActivity.this, R.string.sign_up_failed);
+            if (t != null) finish();
+            else SnackBar.show(SignUpActivity.this, R.string.sign_up_failed);
         }
     }
 }

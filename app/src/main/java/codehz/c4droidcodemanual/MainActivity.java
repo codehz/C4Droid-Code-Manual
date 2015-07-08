@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -13,13 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.kenny.snackbar.SnackBar;
+import com.kenny.snackbar.SnackBarListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static MainActivity self;
     private RecyclerView mRecyclerView;
     private List<DataModel> modelList;
     private List<String> pagerList;
@@ -29,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
-        self = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final MaterialViewPager viewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
@@ -72,12 +74,27 @@ public class MainActivity extends AppCompatActivity {
         UsernameView = (AppCompatTextView) findViewById(R.id.main_username);
         LoginOrLogoutButton = (AppCompatButton) findViewById(R.id.main_login_or_logout);
         SignUpOrChangePasswordButton = (AppCompatButton) findViewById(R.id.main_sign_up_or_change_password);
+        TryLogin();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        TryLogin();
+        if (((DrawerLayout) findViewById(R.id.drawer)).isDrawerOpen(GravityCompat.START)) {
+            TryLogin();
+            SnackBar.show(this,
+                    String.format(getString(R.string.login_success),
+                            AppApplication.Get().bmobUser.getUsername()), new SnackBarListener() {
+                        @Override
+                        public void onSnackBarStarted(Object o) {
+                        }
+
+                        @Override
+                        public void onSnackBarFinished(Object o, boolean b) {
+                            ((DrawerLayout) findViewById(R.id.drawer)).closeDrawers();
+                        }
+                    });
+        }
     }
 
     public void TryLogin() {

@@ -1,13 +1,16 @@
 package codehz.c4droidcodemanual;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.kenny.snackbar.SnackBar;
+import com.kenny.snackbar.SnackBarListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import cn.bmob.v3.listener.SaveListener;
@@ -44,8 +47,18 @@ public class FeedbackActivity extends AppCompatActivity {
                 .save(this, new SaveListener() {
                     @Override
                     public void onSuccess() {
-                        SnackBar.show(MainActivity.self, R.string.feedback_success);
-                        finish();
+                        SnackBar.show(FeedbackActivity.this, R.string.feedback_success, new SnackBarListener() {
+                            @Override
+                            public void onSnackBarStarted(Object o) {
+                                ((InputMethodManager) FeedbackActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE))
+                                        .hideSoftInputFromWindow(findViewById(R.id.edit_title).getWindowToken(), 0);
+                            }
+
+                            @Override
+                            public void onSnackBarFinished(Object o, boolean b) {
+                                finish();
+                            }
+                        });
                     }
 
                     @Override

@@ -13,7 +13,7 @@
     <string name="password_string">Password</string>
     <string name="email_string">Email</string>
     <string name="TheLengthOfYourInputDoesNotMeetTheRequirements">The length of your input does not meet the requirements.</string>
-    <string name="login_success">Login Success:%s, welcome.</string>
+    <string name="login_success">Welcome, %s.</string>
     <string name="login_failed">Login Failed:%s</string>
     <string name="sign_up_success">Registration is successful, please check your email to confirm the registration information.</string>
     <string name="sign_up_failed">Registered success.</string>
