@@ -25,21 +25,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        final MaterialEditText username_met = (MaterialEditText) findViewById(R.id.username);
-        final MaterialEditText password_met = (MaterialEditText) findViewById(R.id.password);
-        password_met.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-
-                    AppApplication.Get().login(
-                            username_met.getText().toString(), password_met.getText().toString(),
-                            new LoginCallback());
-                    return true;
-                }
-                return false;
-            }
-        });
+        ((MaterialEditText) findViewById(R.id.password))
+                .setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            tryLogin();
+                            return true;
+                        }
+                        return false;
+                    }
+                });
     }
 
     @Override
@@ -48,12 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
-        }
+    public void tryLogin() {
         final MaterialEditText username_met = (MaterialEditText) findViewById(R.id.username);
         final MaterialEditText password_met = (MaterialEditText) findViewById(R.id.password);
         boolean valid = true;
@@ -65,10 +56,19 @@ public class LoginActivity extends AppCompatActivity {
             password_met.setError(getString(R.string.TheLengthOfYourInputDoesNotMeetTheRequirements));
             valid = false;
         }
-        if (!valid) return false;
+        if (!valid) return;
         AppApplication.Get().login(
                 username_met.getText().toString(), password_met.getText().toString(),
                 new LoginCallback());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        tryLogin();
         return true;
     }
 

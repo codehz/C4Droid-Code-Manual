@@ -10,7 +10,7 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class AppApplication extends Application {
     private static AppApplication Self;
-    BmobUser bmobUser;
+    public BmobUser bmobUser;
 
     public static AppApplication Get() {
         return Self;

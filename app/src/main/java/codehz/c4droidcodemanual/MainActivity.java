@@ -72,6 +72,11 @@ public class MainActivity extends AppCompatActivity {
         UsernameView = (AppCompatTextView) findViewById(R.id.main_username);
         LoginOrLogoutButton = (AppCompatButton) findViewById(R.id.main_login_or_logout);
         SignUpOrChangePasswordButton = (AppCompatButton) findViewById(R.id.main_sign_up_or_change_password);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         TryLogin();
     }
 
