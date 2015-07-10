@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         if (((DrawerLayout) findViewById(R.id.drawer)).isDrawerOpen(GravityCompat.START)) {
             TryLogin();
+            if (AppApplication.Get().bmobUser == null) return;
             SnackBar.show(this,
                     String.format(getString(R.string.login_success),
                             AppApplication.Get().bmobUser.getUsername()), new SnackBarListener() {
