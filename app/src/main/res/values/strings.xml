@@ -4,6 +4,7 @@
     <string name="close">Close</string>
     <string name="feedback">Feedback</string>
     <string name="title_activity_feedback">Feedback System</string>
+    <string name="error_when_query">Getting data from the server failed, please check the Network.(%s)</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="feedback_tip">You can be here to feed back your suggestions or BUG to the software, and the feedback will be uploaded to the server.</string>

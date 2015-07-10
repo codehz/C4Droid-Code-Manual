@@ -15,17 +15,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.kenny.snackbar.SnackBar;
 import com.kenny.snackbar.SnackBarListener;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 
 
 public class MainActivity extends AppCompatActivity {
+    private MaterialViewPager viewPager;
     private RecyclerView mRecyclerView;
     private List<DataModel> modelList;
-    private List<String> pagerList;
+    private List<CodeCategories> pagerList;
     private DataAdapter dataAdapter;
     private AppCompatTextView UsernameView;
     private AppCompatButton LoginOrLogoutButton, SignUpOrChangePasswordButton;
@@ -34,33 +38,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final MaterialViewPager viewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
-        pagerList = new ArrayList<>();
-        pagerList.add("Recommend");
-        pagerList.add("Pure C");
-        viewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public int getCount() {
-                return pagerList.size();
-            }
-
-            @Override
-            public CharSequence getPageTitle(int position) {
-                return pagerList.get(position);
-            }
-
-            @Override
-            public Fragment getItem(int position) {
-                return BaseFragment.newInstance(pagerList.get(position));
-            }
-        });
-        viewPager.getViewPager().setOffscreenPageLimit(viewPager.getViewPager().getAdapter().getCount());
-        viewPager.getPagerTitleStrip().setViewPager(viewPager.getViewPager());
-        viewPager.getViewPager().setCurrentItem(0);
+        viewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
         final Toolbar toolbar = viewPager.getToolbar();
-        toolbar.setBackgroundColor(getResources().getColor(R.color.main_color));
-        viewPager.getPagerTitleStrip().setBackgroundColor(getResources().getColor(R.color.main_color));
-
+        //toolbar.setBackgroundColor(getResources().getColor(R.color.main_color));
+        //viewPager.getPagerTitleStrip().setBackgroundColor(getResources().getColor(R.color.main_color));
+        initPager();
         if (toolbar != null) {
             setSupportActionBar(toolbar);
 
@@ -75,6 +57,49 @@ public class MainActivity extends AppCompatActivity {
         LoginOrLogoutButton = (AppCompatButton) findViewById(R.id.main_login_or_logout);
         SignUpOrChangePasswordButton = (AppCompatButton) findViewById(R.id.main_sign_up_or_change_password);
         TryLogin();
+    }
+
+    private void initPager() {
+        BmobQuery<CodeCategories> codeCategoriesBmobQuery = new BmobQuery<>();
+        codeCategoriesBmobQuery.order("Order");
+        codeCategoriesBmobQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
+        codeCategoriesBmobQuery.findObjects(this, new FindListener<CodeCategories>() {
+            @Override
+            public void onSuccess(List<CodeCategories> list) {
+                pagerList = list;
+                viewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+                    @Override
+                    public int getCount() {
+                        return pagerList.size();
+                    }
+
+                    @Override
+                    public CharSequence getPageTitle(int position) {
+                        return pagerList.get(position).getNameEN();
+                    }
+
+                    @Override
+                    public Fragment getItem(int position) {
+                        return BaseFragment.newInstance(pagerList.get(position).getNameEN());
+                    }
+                });
+                viewPager.setMaterialViewPagerListener(new MaterialViewPager.MaterialViewPagerListener() {
+                    @Override
+                    public HeaderDesign getHeaderDesign(int page) {
+                        return HeaderDesign.fromColorAndUrl(pagerList.get(page).getThemeColor(),
+                                pagerList.get(page).getThemePic().getFileUrl(MainActivity.this));
+                    }
+                });
+                viewPager.getViewPager().setOffscreenPageLimit(viewPager.getViewPager().getAdapter().getCount());
+                viewPager.getPagerTitleStrip().setViewPager(viewPager.getViewPager());
+                viewPager.getViewPager().setCurrentItem(0);
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                SnackBar.show(MainActivity.this, String.format(getString(R.string.error_when_query), s));
+            }
+        });
     }
 
     @Override
