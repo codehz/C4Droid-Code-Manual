@@ -1,7 +1,11 @@
 package codehz.c4droidcodemanual;
 
+import android.app.ActivityManager;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.MainThread;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
@@ -25,7 +29,8 @@ import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+        implements MaterialViewPager.MaterialViewPagerListener {
     private MaterialViewPager viewPager;
     private RecyclerView mRecyclerView;
     private List<DataModel> modelList;
@@ -40,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         viewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
         final Toolbar toolbar = viewPager.getToolbar();
-        //toolbar.setBackgroundColor(getResources().getColor(R.color.main_color));
-        //viewPager.getPagerTitleStrip().setBackgroundColor(getResources().getColor(R.color.main_color));
         initPager();
         if (toolbar != null) {
             setSupportActionBar(toolbar);
@@ -55,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
         }
         UsernameView = (AppCompatTextView) findViewById(R.id.main_username);
         LoginOrLogoutButton = (AppCompatButton) findViewById(R.id.main_login_or_logout);
-        SignUpOrChangePasswordButton = (AppCompatButton) findViewById(R.id.main_sign_up_or_change_password);
+        SignUpOrChangePasswordButton =
+                (AppCompatButton) findViewById(R.id.main_sign_up_or_change_password);
         TryLogin();
     }
 
@@ -67,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<CodeCategories> list) {
                 pagerList = list;
-                viewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+                viewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter
+                        (getSupportFragmentManager()) {
                     @Override
                     public int getCount() {
                         return pagerList.size();
@@ -80,24 +85,23 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public Fragment getItem(int position) {
-                        return BaseFragment.newInstance(pagerList.get(position).getNameEN());
+                        return BaseFragment.newInstance(pagerList.get(position));
                     }
                 });
-                viewPager.setMaterialViewPagerListener(new MaterialViewPager.MaterialViewPagerListener() {
-                    @Override
-                    public HeaderDesign getHeaderDesign(int page) {
-                        return HeaderDesign.fromColorAndUrl(pagerList.get(page).getThemeColor(),
-                                pagerList.get(page).getThemePic().getFileUrl(MainActivity.this));
-                    }
-                });
-                viewPager.getViewPager().setOffscreenPageLimit(viewPager.getViewPager().getAdapter().getCount());
+                viewPager.setMaterialViewPagerListener(MainActivity.this);
+                viewPager.setImageUrl(pagerList.get(0).getThemePic().getFileUrl(MainActivity.this),
+                        0);
+                viewPager.getViewPager().setOffscreenPageLimit(
+                        viewPager.getViewPager().getAdapter().getCount());
                 viewPager.getPagerTitleStrip().setViewPager(viewPager.getViewPager());
                 viewPager.getViewPager().setCurrentItem(0);
             }
 
             @Override
             public void onError(int i, String s) {
-                SnackBar.show(MainActivity.this, String.format(getString(R.string.error_when_query), s));
+                SnackBar.show(MainActivity.this,
+                        String.format(getString(R.string.error_when_query),
+                                s));
             }
         });
     }
@@ -149,5 +153,18 @@ public class MainActivity extends AppCompatActivity {
     public void Feedback_Click(View view) {
         final Intent intent = new Intent(this, FeedbackActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public HeaderDesign getHeaderDesign(int page) {
+        if (Build.VERSION.SDK_INT >= 21)
+            MainActivity.this.setTaskDescription(
+                    new ActivityManager.TaskDescription(
+                            pagerList.get(page).getNameEN(),
+                            BitmapFactory.decodeResource(
+                                    getResources(), R.mipmap.ic_launcher),
+                            pagerList.get(page).getThemeColor() + 0xFF000000));
+        return HeaderDesign.fromColorAndUrl(pagerList.get(page).getThemeColor(),
+                pagerList.get(page).getThemePic().getFileUrl(MainActivity.this));
     }
 }

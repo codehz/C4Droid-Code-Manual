@@ -13,14 +13,15 @@
         app:viewpager_color="@color/main_color"
         app:viewpager_displayToolbarWhenSwipe="true"
         app:viewpager_enableToolbarElevation="true"
-        app:viewpager_headerAdditionalHeight="20dp"
-        app:viewpager_headerAlpha="0.6"
+        app:viewpager_headerAdditionalHeight="3dp"
+        app:viewpager_headerAlpha="1.0"
         app:viewpager_headerHeight="200dp"
         app:viewpager_hideLogoWithFade="false"
         app:viewpager_hideToolbarAndTitle="true"
         app:viewpager_logoMarginTop="100dp"
         app:viewpager_parallaxHeaderFactor="1.5"
         app:viewpager_transparentToolbar="true"
+        app:viewpager_animatedHeaderImage="false"
         />
 
     <android.support.v7.widget.LinearLayoutCompat
