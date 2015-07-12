@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.MainThread;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
@@ -14,7 +13,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
@@ -32,10 +30,7 @@ import cn.bmob.v3.listener.FindListener;
 public class MainActivity extends AppCompatActivity
         implements MaterialViewPager.MaterialViewPagerListener {
     private MaterialViewPager viewPager;
-    private RecyclerView mRecyclerView;
-    private List<DataModel> modelList;
     private List<CodeCategories> pagerList;
-    private DataAdapter dataAdapter;
     private AppCompatTextView UsernameView;
     private AppCompatButton LoginOrLogoutButton, SignUpOrChangePasswordButton;
 
