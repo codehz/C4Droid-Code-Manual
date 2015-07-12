@@ -54,6 +54,8 @@ public class BaseFragment extends Fragment {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
+        //view.setBackgroundColor(mTarget.getThemeColor() + 0xff000000);
+
         BmobQuery<CodeRepositories> codeRepositoriesBmobQuery = new BmobQuery<>();
         codeRepositoriesBmobQuery.addWhereEqualTo("Category", mTarget);
         //codeRepositoriesBmobQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);

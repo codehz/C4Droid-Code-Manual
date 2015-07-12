@@ -89,6 +89,16 @@ public class MainActivity extends AppCompatActivity
                     }
                 });
                 viewPager.setMaterialViewPagerListener(MainActivity.this);
+                if (Build.VERSION.SDK_INT >= 21)
+                    MainActivity.this.setTaskDescription(
+                            new ActivityManager.TaskDescription(
+                                    String.format(
+                                            getString(R.string.main_title),
+                                            pagerList.get(0).getNameEN()),
+                                    BitmapFactory.decodeResource(
+                                            getResources(), R.mipmap.ic_launcher),
+                                    pagerList.get(0).getThemeColor() + 0xFF000000));
+                viewPager.setColor(pagerList.get(0).getThemeColor() + 0xFF000000, 0);
                 viewPager.setImageUrl(pagerList.get(0).getThemePic().getFileUrl(MainActivity.this),
                         0);
                 viewPager.getViewPager().setOffscreenPageLimit(
@@ -160,10 +170,13 @@ public class MainActivity extends AppCompatActivity
         if (Build.VERSION.SDK_INT >= 21)
             MainActivity.this.setTaskDescription(
                     new ActivityManager.TaskDescription(
-                            pagerList.get(page).getNameEN(),
+                            String.format(
+                                    getString(R.string.main_title),
+                                    pagerList.get(page).getNameEN()),
                             BitmapFactory.decodeResource(
                                     getResources(), R.mipmap.ic_launcher),
                             pagerList.get(page).getThemeColor() + 0xFF000000));
+        viewPager.setColor(pagerList.get(page).getThemeColor() + 0xFF000000, 0);
         return HeaderDesign.fromColorAndUrl(pagerList.get(page).getThemeColor(),
                 pagerList.get(page).getThemePic().getFileUrl(MainActivity.this));
     }
