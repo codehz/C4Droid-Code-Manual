@@ -2,6 +2,12 @@ package codehz.c4droidcodemanual;
 
 import android.app.Application;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -10,6 +16,7 @@ import cn.bmob.v3.listener.SaveListener;
 
 public class AppApplication extends Application {
     private static AppApplication Self;
+    public final List<List<CodeRepositories>> repositories = new ArrayList<>();
     public BmobUser bmobUser;
 
     public static AppApplication Get() {
@@ -20,6 +27,7 @@ public class AppApplication extends Application {
     public void onCreate() {
         Bmob.initialize(this, "da1ccd1c8100bad2b32825bf1ab9fa34");
         bmobUser = BmobUser.getCurrentUser(this);
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(this));
         Self = this;
     }
 

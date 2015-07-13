@@ -8,9 +8,9 @@ import android.widget.TextView;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<DataModel> contents;
+    private List<CodeRepositories> contents;
 
-    public RecyclerViewAdapter(final List<DataModel> contents) {
+    public RecyclerViewAdapter(final List<CodeRepositories> contents) {
         this.contents = contents;
     }
 
@@ -26,8 +26,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-        final DataModel model = contents.get(position);
-        ((TextView)holder.itemView.findViewById(R.id.card_view_title)).setText(model.Title);
-        ((TextView)holder.itemView.findViewById(R.id.card_view_preview)).setText(model.Preview);
+        final CodeRepositories model = contents.get(position);
+        ((TextView) holder.itemView.findViewById(R.id.card_view_title)).setText(model.getTitle());
+        ((TextView) holder.itemView.findViewById(R.id.card_view_preview)).setText(model.getPreview());
     }
 }

@@ -1,35 +1,29 @@
 package codehz.c4droidcodemanual;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
-import com.kenny.snackbar.SnackBar;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import cn.bmob.v3.BmobQuery;
-import cn.bmob.v3.listener.CountListener;
-import cn.bmob.v3.listener.FindListener;
-
 public class BaseFragment extends Fragment {
-    private static final String ARG_TARGET = "target";
-
-    private CodeCategories mTarget;
+    private DataAsyncTask dataAsyncTask;
+    private int mTarget;
     private RecyclerView mRecyclerView;
-    private List<DataModel> mContentItems = new ArrayList<>();
 
     public BaseFragment() {
     }
 
-    public static BaseFragment newInstance(final CodeCategories target) {
+    public static BaseFragment newInstance(final int target) {
         BaseFragment fragment = new BaseFragment();
         fragment.mTarget = target;
         return fragment;
@@ -54,26 +48,9 @@ public class BaseFragment extends Fragment {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
 
-        //view.setBackgroundColor(mTarget.getThemeColor() + 0xff000000);
+        dataAsyncTask = new DataAsyncTask(mTarget);
+        dataAsyncTask.execute();
 
-        BmobQuery<CodeRepositories> codeRepositoriesBmobQuery = new BmobQuery<>();
-        codeRepositoriesBmobQuery.addWhereEqualTo("Category", mTarget);
-        //codeRepositoriesBmobQuery.setCachePolicy(BmobQuery.CachePolicy.CACHE_ELSE_NETWORK);
-        codeRepositoriesBmobQuery.findObjects(getActivity(), new FindListener<CodeRepositories>() {
-            @Override
-            final public void onSuccess(List<CodeRepositories> list) {
-                for (int i = 0; i < list.size(); i++) {
-                    mContentItems.add(new DataModel(list.get(i).getTitle(),
-                            list.get(i).getPreview()));
-                    mRecyclerView.setAdapter(new RecyclerViewMaterialAdapter(new RecyclerViewAdapter(mContentItems)));
-                }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-                SnackBar.show(getActivity(), String.format(getString(R.string.error_when_query), s));
-            }
-        });
         mRecyclerView.setAdapter(new RecyclerView.Adapter() {
             @Override
             public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -91,5 +68,39 @@ public class BaseFragment extends Fragment {
             }
         });
         MaterialViewPagerHelper.registerRecyclerView(getActivity(), mRecyclerView, null);
+    }
+
+    private class DataAsyncTask extends AsyncTask<Void, Void, List<CodeRepositories>> {
+        private int pos;
+
+        public DataAsyncTask(int _pos) {
+            super();
+            pos = _pos;
+        }
+
+        @Override
+        protected List<CodeRepositories> doInBackground(Void... params) {
+            Log.d("BaseFragment", "Start" + pos);
+            while (AppApplication.Get().repositories.get(pos) == null) {
+                try {
+                    synchronized (AppApplication.Get().repositories) {
+                        AppApplication.Get().repositories.wait();
+                    }
+                    Log.d("BaseFragment", "wait finish" + pos);
+                } catch (InterruptedException e) {
+                    Log.d("BaseFragment", "wait interrupted" + pos);
+                }
+            }
+            Log.d("BaseFragment", pos + "End" + AppApplication.Get().repositories.get(pos).size());
+            return AppApplication.Get().repositories.get(pos);
+        }
+
+        @Override
+        protected void onPostExecute(List<CodeRepositories> codeRepositories) {
+            super.onPostExecute(codeRepositories);
+            mRecyclerView.setAdapter(
+                    new RecyclerViewMaterialAdapter(new RecyclerViewAdapter(codeRepositories)));
+            Log.d("BaseFragment", "Set.");
+        }
     }
 }
