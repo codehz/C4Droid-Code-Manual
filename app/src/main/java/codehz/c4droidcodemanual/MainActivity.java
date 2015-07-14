@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public Fragment getItem(int position) {
-            return BaseFragment.newInstance(position);
+            return BaseFragment.newInstance(position, pagerList.get(position).getThemeColor());
         }
     }
 }

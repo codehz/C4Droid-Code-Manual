@@ -32,6 +32,7 @@ dependencies {
         transitive = true
     }
     compile 'com.kennyc:snackbar:2.5'
+    compile 'org.markdownj:markdownj-core:0.4'
     compile files('libs/BmobSDK.jar')
     compile files('libs/universal-image-loader-1.9.4.jar')
 }

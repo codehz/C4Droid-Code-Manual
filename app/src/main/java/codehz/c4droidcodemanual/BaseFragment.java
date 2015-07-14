@@ -19,19 +19,16 @@ public class BaseFragment extends Fragment {
     private DataAsyncTask dataAsyncTask;
     private int mTarget;
     private RecyclerView mRecyclerView;
+    private int color;
 
     public BaseFragment() {
     }
 
-    public static BaseFragment newInstance(final int target) {
+    public static BaseFragment newInstance(final int target, final int color) {
         BaseFragment fragment = new BaseFragment();
         fragment.mTarget = target;
+        fragment.color = color;
         return fragment;
-    }
-
-    @Override
-    public void onCreate(final Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -99,7 +96,8 @@ public class BaseFragment extends Fragment {
         protected void onPostExecute(List<CodeRepositories> codeRepositories) {
             super.onPostExecute(codeRepositories);
             mRecyclerView.setAdapter(
-                    new RecyclerViewMaterialAdapter(new RecyclerViewAdapter(codeRepositories)));
+                    new RecyclerViewMaterialAdapter(
+                            new RecyclerViewAdapter(codeRepositories, mTarget, color)));
             Log.d("BaseFragment", "Set.");
         }
     }
