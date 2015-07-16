@@ -1,26 +1,28 @@
 package codehz.c4droidcodemanual;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 
 
-public class ContentActivity extends AppCompatActivity {
+public class ContentActivity extends BaseActivity {
+    private int category, num;
     private MaterialViewPager viewPager;
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int category = getIntent().getIntExtra("category", 0);
-        int num = getIntent().getIntExtra("num", 0);
+        category = getIntent().getIntExtra("category", 0);
+        num = getIntent().getIntExtra("num", 0);
         setContentView(R.layout.activity_content);
         viewPager = (MaterialViewPager) findViewById(R.id.materialViewPager);
         viewPager.setColor(getIntent().getIntExtra("color", 0) + 0xff000000, 0);
@@ -49,7 +51,19 @@ public class ContentActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_content, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_edit) {
+            Intent intent = new Intent(this, EditActivity.class);
+            intent.putExtra("category", category);
+            intent.putExtra("num", num);
+            startActivity(intent);
+        }
         finish();
         return true;
     }
@@ -71,7 +85,7 @@ public class ContentActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             return ContentFragment.newInstance(
-                    AppApplication.Get().repositories.get(category).get(num));
+                    category, num);
         }
 
         @Override

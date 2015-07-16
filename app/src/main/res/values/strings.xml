@@ -35,4 +35,7 @@
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="title_activity_content">ContentActivity</string>
     <string name="content">Content</string>
+    <string name="title_activity_edit">Edit</string>
+    <string name="commit">Commit</string>
+    <string name="action_edit">Edit</string>
 </resources>

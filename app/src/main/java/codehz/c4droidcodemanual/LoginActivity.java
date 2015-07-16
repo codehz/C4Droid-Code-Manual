@@ -2,7 +2,6 @@ package codehz.c4droidcodemanual;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -17,7 +16,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import cn.bmob.v3.BmobUser;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

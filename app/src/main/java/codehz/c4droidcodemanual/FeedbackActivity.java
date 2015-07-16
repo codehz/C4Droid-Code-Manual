@@ -2,8 +2,6 @@ package codehz.c4droidcodemanual;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,13 +14,12 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import cn.bmob.v3.listener.SaveListener;
 
 
-public class FeedbackActivity extends AppCompatActivity {
+public class FeedbackActivity extends BaseActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
-        LinearLayoutCompat dl = (LinearLayoutCompat) findViewById(R.id.main);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }

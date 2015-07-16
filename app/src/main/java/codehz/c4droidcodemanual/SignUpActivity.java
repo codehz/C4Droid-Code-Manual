@@ -2,7 +2,6 @@ package codehz.c4droidcodemanual;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -19,7 +18,7 @@ import java.util.regex.Pattern;
 import cn.bmob.v3.BmobUser;
 
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends BaseActivity {
     private final Pattern emailFormat =
             Pattern.compile("^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w{2,3}){1,3})$");
 
