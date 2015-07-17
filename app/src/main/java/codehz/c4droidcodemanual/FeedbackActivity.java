@@ -2,13 +2,12 @@ package codehz.c4droidcodemanual;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
-import com.kenny.snackbar.SnackBar;
-import com.kenny.snackbar.SnackBarListener;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import cn.bmob.v3.listener.SaveListener;
@@ -44,23 +43,20 @@ public class FeedbackActivity extends BaseActivity {
                 .save(this, new SaveListener() {
                     @Override
                     public void onSuccess() {
-                        SnackBar.show(FeedbackActivity.this, R.string.feedback_success, new SnackBarListener() {
-                            @Override
-                            public void onSnackBarStarted(Object o) {
-                                ((InputMethodManager) FeedbackActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE))
-                                        .hideSoftInputFromWindow(findViewById(R.id.edit_title).getWindowToken(), 0);
-                            }
-
-                            @Override
-                            public void onSnackBarFinished(Object o, boolean b) {
-                                finish();
-                            }
-                        });
+                        Snackbar.make(getWindow().getDecorView(),
+                                R.string.feedback_success, Snackbar.LENGTH_LONG).show();
+                        ((InputMethodManager)
+                                FeedbackActivity.this.getSystemService
+                                        (Context.INPUT_METHOD_SERVICE))
+                                .hideSoftInputFromWindow
+                                        (findViewById(R.id.edit_title).getWindowToken(), 0);
                     }
 
                     @Override
                     public void onFailure(int code, String msg) {
-                        SnackBar.show(FeedbackActivity.this, String.format(getString(R.string.feedback_failed), msg));
+                        Snackbar.make(getWindow().getDecorView(),
+                                String.format(getString(R.string.feedback_failed), msg),
+                                Snackbar.LENGTH_LONG).show();
                     }
                 });
     }
@@ -78,12 +74,6 @@ public class FeedbackActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        SnackBar.cancelSnackBars(this);
     }
 
     @Override

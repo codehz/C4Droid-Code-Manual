@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -19,8 +20,6 @@ import android.view.View;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
-import com.kenny.snackbar.SnackBar;
-import com.kenny.snackbar.SnackBarListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,18 +80,10 @@ public class MainActivity extends BaseActivity
         if (((DrawerLayout) findViewById(R.id.drawer)).isDrawerOpen(GravityCompat.START)) {
             TryLogin();
             if (AppApplication.Get().bmobUser == null) return;
-            SnackBar.show(this,
+            ((DrawerLayout) findViewById(R.id.drawer)).closeDrawers();
+            Snackbar.make(getWindow().getDecorView(),
                     String.format(getString(R.string.login_success),
-                            AppApplication.Get().bmobUser.getUsername()), new SnackBarListener() {
-                        @Override
-                        public void onSnackBarStarted(Object o) {
-                        }
-
-                        @Override
-                        public void onSnackBarFinished(Object o, boolean b) {
-                            ((DrawerLayout) findViewById(R.id.drawer)).closeDrawers();
-                        }
-                    });
+                            AppApplication.Get().bmobUser.getUsername()), Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -184,9 +175,9 @@ public class MainActivity extends BaseActivity
 
         @Override
         public void onError(int i, String s) {
-            SnackBar.show(MainActivity.this,
-                    String.format(getString(R.string.error_when_query),
-                            s));
+            Snackbar.make(getWindow().getDecorView(),
+                    String.format(getString(R.string.error_when_query), s),
+                    Snackbar.LENGTH_LONG).show();
         }
     }
 
@@ -221,9 +212,9 @@ public class MainActivity extends BaseActivity
                     AppApplication.Get().repositories.set(i, new ArrayList<CodeRepositories>());
                 }
                 AppApplication.Get().repositories.notifyAll();
-                SnackBar.show(MainActivity.this,
-                        String.format(getString(R.string.error_when_query),
-                                s));
+                Snackbar.make(getWindow().getDecorView(),
+                        String.format(getString(R.string.error_when_query), s),
+                        Snackbar.LENGTH_LONG);
             }
         }
     }

@@ -2,6 +2,7 @@ package codehz.c4droidcodemanual;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -9,7 +10,6 @@ import android.view.MenuItem;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
-import com.kenny.snackbar.SnackBar;
 import com.rengwuxian.materialedittext.MaterialEditText;
 import com.rengwuxian.materialedittext.validation.METValidator;
 
@@ -94,7 +94,8 @@ public class SignUpActivity extends BaseActivity {
         @Override
         public void done(final BmobUser t, final Exception e) {
             if (t != null) finish();
-            else SnackBar.show(SignUpActivity.this, R.string.sign_up_failed);
+            else Snackbar.make(getWindow().getDecorView(), R.string.sign_up_failed,
+                    Snackbar.LENGTH_LONG);
         }
     }
 }

@@ -48,7 +48,8 @@
             android:label="@string/title_activity_content" />
         <activity
             android:name=".EditActivity"
-            android:label="@string/title_activity_edit">
+            android:label="@string/title_activity_edit"
+            android:windowSoftInputMode="adjustResize">
         </activity>
     </application>
 

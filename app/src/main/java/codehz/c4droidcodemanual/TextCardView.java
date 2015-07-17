@@ -27,10 +27,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TextCardView extends RecyclerView {
-    private final static MarkdownProcessor markdownProcessor = new MarkdownProcessor();
-    private String content;
-    private List<String> pic;
-    private List<ViewDataModel> viewDataModelList = new ArrayList<>();
+    protected final static MarkdownProcessor markdownProcessor = new MarkdownProcessor();
+    protected String content;
+    protected List<String> pic;
+    protected List<ViewDataModel> viewDataModelList = new ArrayList<>();
 
     public TextCardView(Context context) {
         this(context, null);
@@ -54,12 +54,12 @@ public class TextCardView extends RecyclerView {
     }
 
     public void decode() {
-        String[] list = content.split("````");
+        String[] list = content.split("`====`");
         for (String node : list) {
             Log.d("TextCardView", "Node:" + node);
-            if (node.startsWith("```Pic")) {
+            if (node.startsWith("`Pic")) {
                 viewDataModelList.add(new ImageViewDataModel(getContext(),
-                        pic.get(Integer.parseInt(node.substring(7, -2)))));
+                        pic.get(Integer.parseInt(node.substring(5, -1)))));
             } else {
                 viewDataModelList.add(new TextViewDataModel(getContext(), node));
             }
@@ -114,13 +114,12 @@ public class TextCardView extends RecyclerView {
 
         public TextViewDataModel(Context context, String text) {
             super(context);
-            html = markdownProcessor.markdown(text.replaceAll("``", "  \n")).trim();
+            html = markdownProcessor.markdown(text.replaceAll("`br`", "  \n")).trim();
         }
 
         @Override
         public View GetView() {
             WebView view = new MyWebView(context);
-            view.setVisibility(View.INVISIBLE);
             view.setVerticalScrollBarEnabled(false);
             view.loadData(String.format(Format, html), "text/HTML", "utf-8");
             view.setBackgroundColor(0);
@@ -128,7 +127,6 @@ public class TextCardView extends RecyclerView {
                     new ViewGroup.LayoutParams(
                             ViewGroup.LayoutParams.MATCH_PARENT,
                             ViewGroup.LayoutParams.WRAP_CONTENT));
-            view.setVisibility(View.VISIBLE);
             return view;
         }
 
@@ -138,7 +136,6 @@ public class TextCardView extends RecyclerView {
         }
 
         class MyWebView extends WebView {
-            //private boolean isFirst = true;
             private Handler handler;
 
             @SuppressLint("AddJavascriptInterface")
@@ -149,7 +146,6 @@ public class TextCardView extends RecyclerView {
                 setWebViewClient(new WebViewClient() {
                     @Override
                     public void onPageFinished(WebView view, String url) {
-                        //App.resize(document.body.getBoundingClientRect().height
                         view.loadUrl("javascript:" +
                                 "App.resize(document.body.getBoundingClientRect().bottom + " +
                                 "document.body.getBoundingClientRect().top);");

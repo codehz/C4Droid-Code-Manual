@@ -1,15 +1,17 @@
 package codehz.c4droidcodemanual;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 
 
 public class EditActivity extends BaseActivity {
     private int category, num;
-    private EditText editText;
+    private EditCardView editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +20,39 @@ public class EditActivity extends BaseActivity {
         num = getIntent().getIntExtra("num", 0);
         setContentView(R.layout.activity_edit);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        getSupportActionBar().startActionMode(new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        editText = (EditText) findViewById(R.id.main_edit);
-        editText.setText(AppApplication.Get().repositories.get(category).get(num).getContent());
+        editText = (EditCardView) findViewById(R.id.main_edit);
+
+        editText.setContent(AppApplication.Get().repositories.get(category).get(num).getContent());
+        editText.decode();
+
+        setStatusBar();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public void setStatusBar() {
+        getWindow().setStatusBarColor(getResources().getColor(R.color.main_color));
     }
 
     @Override
@@ -35,10 +67,10 @@ public class EditActivity extends BaseActivity {
 
         if (id == R.id.action_commit) {
             CodeRepositories temp = AppApplication.Get().repositories.get(category).get(num);
-            temp.setContent(editText.getText().toString());
+            temp.setContent(editText.encode());
             temp.update(AppApplication.Get());
         }
-
+        finish();
         return super.onOptionsItemSelected(item);
     }
 }

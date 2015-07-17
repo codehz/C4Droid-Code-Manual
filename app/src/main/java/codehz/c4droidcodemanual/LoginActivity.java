@@ -2,6 +2,7 @@ package codehz.c4droidcodemanual;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -10,7 +11,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
-import com.kenny.snackbar.SnackBar;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import cn.bmob.v3.BmobUser;
@@ -75,10 +75,11 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void done(final BmobUser bmobUser, final Exception e) {
             if (bmobUser == null) {
-                SnackBar.show(LoginActivity.this,
-                        String.format(getString(R.string.login_failed),
-                                e.getMessage()));
-                ((InputMethodManager) LoginActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE))
+                Snackbar.make(getWindow().getDecorView(),
+                        String.format(getString(R.string.login_failed), e.getMessage()),
+                        Snackbar.LENGTH_LONG).show();
+                ((InputMethodManager) LoginActivity.this.getSystemService
+                        (Context.INPUT_METHOD_SERVICE))
                         .hideSoftInputFromWindow(findViewById(R.id.username).getWindowToken(), 0);
             } else finish();
         }
